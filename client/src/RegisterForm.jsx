@@ -6,9 +6,14 @@ const RegisterForm = () => {
   const [userType, setUserType] = useState("student");
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDropdownToggle = (open) => {
+    setIsDropdownOpen(open);
   };
 
   const handleSubmit = (e) => {
@@ -22,12 +27,24 @@ const RegisterForm = () => {
         <h2>Register</h2>
         <form className="register-form" onSubmit={handleSubmit}>
           
-          {/* Role Selection */}
-          <label className="role-label">Select Role:</label>
-          <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-          </select>
+          {/* User Role Selection */}
+                    <div 
+                      className={`role-dropdown-container ${isDropdownOpen ? "expanded" : ""}`} 
+                    >
+                      <label className="role-label">
+                        <FaUser className="icon" /> Select Role:
+                        <select 
+                          value={userType} 
+                          onChange={(e) => setUserType(e.target.value)} 
+                          onFocus={() => handleDropdownToggle(true)}
+                          onBlur={() => handleDropdownToggle(false)}
+                          className="role-dropdown"
+                        >
+                          <option value="student">Student</option>
+                          <option value="teacher">Teacher</option>
+                        </select>
+                      </label>
+                    </div>
 
           {/* Name Field */}
           <div className="input-group">
