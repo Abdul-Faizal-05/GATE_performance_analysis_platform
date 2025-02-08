@@ -5,9 +5,14 @@ import "./Login.css"; // Import styles
 const LoginForm = () => {
   const [userType, setUserType] = useState("student");
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDropdownToggle = (open) => {
+    setIsDropdownOpen(open);
   };
 
   const handleSubmit = (e) => {
@@ -24,13 +29,23 @@ const LoginForm = () => {
         <form className="login-form" onSubmit={handleSubmit}>
 
           {/* User Role Selection */}
-          <label className="role-label">
-            <FaUser className="icon" /> Select Role:
-            <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-              <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
-            </select>
-          </label>
+          <div 
+            className={`role-dropdown-container ${isDropdownOpen ? "expanded" : ""}`} 
+          >
+            <label className="role-label">
+              <FaUser className="icon" /> Select Role:
+              <select 
+                value={userType} 
+                onChange={(e) => setUserType(e.target.value)} 
+                onFocus={() => handleDropdownToggle(true)}
+                onBlur={() => handleDropdownToggle(false)}
+                className="role-dropdown"
+              >
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+              </select>
+            </label>
+          </div>
 
           {/* Email Field */}
           <div className="input-group">
@@ -57,6 +72,11 @@ const LoginForm = () => {
               required 
             />
           </div>
+
+          {/* Forgot Password Link */}
+          <p className="forgot-password">
+            <a href="/forgot-password" className="forgot-password-link">Forgot Password?</a>
+          </p>
 
           {/* Login Button */}
           <button className="login-button" type="submit">Login</button>
