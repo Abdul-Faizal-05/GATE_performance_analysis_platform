@@ -83,6 +83,16 @@
     margin-left: 8px;
 }
 
+/* Smooth Spacing Transition */
+.role-dropdown-container {
+    transition: margin-bottom 0.3s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.role-dropdown-container.expanded {
+    margin-bottom: 57px;
+}
+
 /* Role Selection */
 .role-label {
     display: flex;
@@ -102,6 +112,7 @@ select {
     font-size: 1rem;
     cursor: pointer;
 }
+
 
 /* Neon Button Styling */
 .register-button {
